@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+body {
+    background: #1f1e1a;
+}
+.houseWrap {
+    /* width: 1920px; */
+    background: #1f1e1a;
+    max-width: 1190px;
+    margin: 0 auto;
+}
+.headerImg {
+    height: 221px;
+    position: relative;
+}
+.img {
+    width: 100%;
+    height: 100%;
+}
+.admissionBtn {
+    display: inline-block;
+    height: 42px;
+    width: 200px;
+    background: #FF552E;
+    text-align: center;
+    line-height: 42px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    bottom: -23px;
+    border-radius: 4px;
+}
+.iconWrap {
+    height: 160px;
+    max-width: 1190px;
+    margin: 0 auto;
+}
+.lineIcon {
+    text-align: center;
+    
+    margin-top: 42px;
+}
+.imgIcon {
+    height: 80px;
+}
+.standardText {
+    display: inline-block;
+    font-size: 14px;
+    color: #AAAAAA;
+    text-align: center;
+    height: 60px;
+    width: 340px;
+    background: #333333;
+    line-height: 60px;
+    margin-right: 35px;
+}
+.second {
+    margin-top: 40px;
+}
+.notesWrap {
+    font-size: 14px;
+    color: #AAAAAA;
+    text-align: justify;
+    width: 1101px;
+    margin: 26px auto;
+    padding: 20px;
+}
+.notesLine {
+    margin: 10px 0;
+}
+.btnBottom {
+    text-align: center;
+    padding-bottom: 57px;
+}
+.admissionBtnBottom {
+    display: inline-block;
+    height: 42px;
+    width: 200px;
+    background: #FF552E;
+    text-align: center;
+    line-height: 42px;
+    border-radius: 4px;
+}
+.cooperIcon {
+    font-size: 0px;
+    margin-right: 16px;
+}
+.cooperIconWrap {
+    max-width: 1190px;
+    margin: 0 auto;
+}

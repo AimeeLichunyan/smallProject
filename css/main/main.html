@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         .content {
+             /* position: absolute;
+             left: 50%;
+             top: 50%; */
+             /* transform: translate(-50%,-50%); */
+             font-size: 30px;
+             height: 1200px;
+             width: 1500px;
+             margin: 0 auto;
+         }
+         .up, .down {
+             position: absolute;
+             height: 100%;
+             line-height: 100px;
+         }
+         .up::before {
+            content: "爱你么么哒";
+            position: absolute;
+            width: 500px;
+            }
+
+         .up {
+            color: lightblue;
+             z-index: 2;
+             width: 50px;
+             overflow: hidden;
+             border-radius: 15%;
+             background: #eee;
+         }
+         .down {
+            color: indianred;
+             z-index: 1;
+         }
+         .up::before {
+            animation: run2 2.5s infinite;
+            -webkit-animation: run2 2.5s infinite;
+        }
+        @keyframes run2 {
+            0% { left: 100px; }
+            100% { left: -500px; }
+        }
+        @-webkit-keyframes run2 {
+            0% { left: 100px; }
+            100% { left: -500px; }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- <div class="down">爱你么么哒</div>
+        <div class="up"></div> -->
+        <!-- <iframe width="100%" height="100%" src="../pdf/web/viewer.html" /> -->
+        <h1>PDF.js Previous/Next example</h1> 
+  
+        <div> 
+        <button id="prev">Previous</button> 
+        <button id="next">Next</button> 
+            
+        <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span> 
+        </div> 
+        <canvas id="the-canvas"></canvas>
+    </div>
+    
+</body>
+<!-- <script src="../pdf/build/pdf.js"></script>
+<script src="../pdf/build/pdf.worker.js"></script> -->
+<script>
+      // 思路一：接收一个函数
+      // 思路二：返回一个数组
+      Array.prototype.myFilter = function(fn) {
+          console.log(this)
+          console.log(fn)
+          let arr = [];
+          for(let i = 0; i < this.length; i++) {
+            let item = this[i]
+            console.log(fn(item,i,this))
+            if(fn(item,i,this)) {
+              arr.push(this[i])
+            }
+          }
+          return arr;
+      }
+      var arr = ['a','a','c','d','e','f','g','h','i'];
+      var s1 = ['a','c','d'];
+        let b = arr.myFilter(function(it) {
+          return s1.includes(it)? true: false
+        })
+        console.log(b)
+        var prev = document.getElementById('prev');
+        prev.addEventListener('click',function() {
+          console.log(this)
+           function a()  {
+            console.log(this)
+          }
+          a.call('q')
+          // console.log('start')
+          // for(var i = 0; i < 10; i++) {
+          //   // console.log(i)
+          //     if(i == 5) {
+          //       return;
+          //     }
+          //     console.log(i)
+          // }
+          // console.log('end')
+          var s2 = ['a','b','c','d','e','f'];
+          var s1 = ['f','b','g','d'];
+          var arr = ['a','b','c','d','e','f','g','h','i'];
+          // var b = arr.filter(function(i) {
+          //    return s1.includes(i)?s2.includes(i)?true:false:false
+
+          //       // for(var j=0; j< s1.length; j++) {
+          //       //   if((i == s1[j])) {
+          //       //     for(var h=0; h <s2.length; h++) {
+          //       //       if((i == s2[h])) {
+          //       //         return true;
+          //       //       }
+          //       //     }
+          //       //   }
+          //         // console.log('i',i)
+          //         // console.log('1',s1[j])
+          //         // console.log('2',s2[j])
+          //         // console.log(i == s1[j])
+          //         // console.log(i == s2[j])
+          //         // if((i == s1[j]) && (i == s2[j])) {
+          //         //   console.log(i == s1[j]) && (i == s2[j])
+          //         //   return true
+          //         // }
+          //         // console.log(i)
+          //       // }
+          //       // console.log(i)
+            
+          // })
+          // console.log(b)
+          
+         
+        })
+
+
+
+</script>
+</html>
