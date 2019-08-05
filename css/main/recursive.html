@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            // 2019-08-01 学习递归
+            function fn(n) {
+                if(n == 1) {
+                    return 1;
+                }
+                return n * fn(n-1)
+            }
+            console.log(fn(5))
+
+
+            var removeDuplicates = function(S) {
+                
+                var ss = S.split('');
+                for(let i = 0; i <ss.length; i++) {
+                        if(ss.length <= 1) {
+                            break;
+                        }
+                        if(ss[i] == ss[i+1]) {
+                            ss.splice(i,2);
+                            i = i-2;
+                        }
+                    }
+                   let result = ss.join('')
+                    // removeDuplicates(ss.join(''))
+                    return result;
+                    console.log('最后的',result)
+            };
+            removeDuplicates("abbaca");
+
+            var addToArrayForm = function(A, K) {
+                var arrNum = A.join('')
+                console.log('arrNum',arrNum)
+                var addNum = arrNum + K;
+                console.log(addNum)
+                return addNum.toString().split('')
+            };
+            // addToArrayForm([1,2,6,3,0,7,1,7,1,9,7,5,6,6,4,4,0,0,6,3],516)
+
+            // 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+            var isPalindrome = function(x) {
+                var xString = x.toString();
+                var newX = xString.split('').reverse().join('');
+                console.log(newX)
+                if(xString == newX) {
+                    console.log(xString == newX)
+                return true
+                }else {
+                    return false
+                }
+            };
+            // isPalindrome(121)
+            
+
+            var romanToInt = function(s) {
+                var obj = {
+                    I: 1,
+                    II: 2,
+                    III: 3,
+                    IV: 4,
+                    V: 5,
+                    VI: 6,
+                    VII: 7,
+                    VIII: 8,
+                    IX: 9,
+                    X: 10,
+                    L:50,
+                    C:100,
+                    D: 500,
+                    M: 1000,
+                }
+                console.log(obj[s])
+                if(obj[s]) {
+                    return obj[s]
+                }else {
+                    var newS = s.split('');
+                    var num = 0
+                    for (item of newS) {
+                        num += obj[item]
+                    }
+                    console.log(num)
+                }
+            };
+            romanToInt('MCMXCIV')
+    </script>
+</body>
+</html>

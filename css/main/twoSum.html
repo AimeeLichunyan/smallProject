@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="mydiv"></div>
+    <script>
+        var twoSum = function(nums, target) {
+	    let map = new Map();
+	    let arr = new Array()
+	    for(let i in nums){
+	        map.set(
+	            nums[i],
+	            i
+	        )
+	    }
+        console.log(map)
+	    
+	    for(let j = 0; j < nums.length - 1; j++){
+	        if(map.has( target - nums[j] ) && map.get( target - nums[j]) != j ){
+	            arr.push( j , map.get( target - nums[j] ) );
+	            return arr
+	        }
+	    }
+    
+	}
+    twoSum([2, 7, 11, 15],9)
+    console.log(twoSum([2, 7, 11, 15],9))
+    var arr = [2, 7, 11, 15];
+    arr.map((x,i) => console.log('x',x,i))
+    console.log(Set.prototype.constructor) // Set函数
+
+    console.log('map结构初认识')
+    var data = {};
+    var element = document.getElementById('mydiv');
+    console.log(element) //<div id="mydiv"></div>
+    data[element] = 'metadata'; // element的值会自动转换为 metadata
+    // data['[object HTMLDivElement]'] 
+    console.log(data)
+    console.log('====开始map认知路====')
+    var m = new Map();
+    var o = {
+        p: 'helloWorld',
+    }
+    m.set(o,'content'); // 将对象o以键值的方式set到m中
+    m.get(o) // content; 获取o的值
+    console.log(m)
+    console.log(m.get(o)) // 对象o是键，content是value的值
+    // map接受一个数组作为参数
+    console.log('====map接受一个数组作为参数====')
+    var map = new Map([
+        ['name', '张三'],
+        ['title','author']
+    ])
+    console.log(map)
+    console.log(Array.from(map)) // 从头到尾所有的都会变成数组
+    console.log(map.size) // 2
+    console.log(map.has('name')) // true
+    console.log(map.get('name')) // 张三
+    console.log(map.has('张三')) // false
+    console.log(map.get('author')) // undefined 
+    // 总结，map获取或者判断是否有无都是按照键来判断的，不能按值来
+
+
+    // Map构造函数接受数组作为参数
+    var items = [
+        ['name', '李四'],
+        ['title', 'author']
+    ];
+    var map = new Map();
+    items.forEach(([key,value]) => {
+        map.set(key,value)
+        console.log([key,value])
+    })
+    console.log(map)
+    
+    // 只有对同一个对象的引用，Map结构才将其视为同一个键  不明白的地方
+    console.log('同一个对象的引用')
+    var map = new Map() 
+    map.set(['a'],55);
+    console.log(map)
+    console.log(map.get(['a'])) // undefined
+    // 如何解决呢
+    var b = ['a']; // 同样都是['a']， map结构中被视为两个键
+    map.set(b,66);
+    console.log(map.get(b))
+
+    // 如何将map转换为一个数组
+
+    var map = new Map([
+        [1, 'one'],
+        [2, 'two'],
+        [3, 'three'],
+    ]);
+    // key值变成数组
+    var arrMap = [...map.keys()]
+    console.log(arrMap)
+
+    // key， value变成数组
+    var arrkeyAndValue = [...map.entries()] // 变成一个二维数组
+    console.log(arrkeyAndValue)
+    var arr = [...map];
+    console.log(arr)
+    // 结合数组的map方法、filter方法，可以实现Map的遍历和过滤
+
+    // map转换成对象
+    // 注; map的键都是字符串可以转换成对象
+    function strMapToObj(strMap) {
+        let obj = Object.create(null);
+        for(let [k,v] of strMap) {
+            obj[k] = v;
+        }
+        return obj
+    }
+    let myMap = new Map().set('yes',true).set('no',false);
+    
+    console.log(strMapToObj(myMap))
+    </script>
+</body>
+</html> 
