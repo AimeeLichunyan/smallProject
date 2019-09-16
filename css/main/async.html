@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function testAsycn(params) {
+            // return 'hello'
+        }
+        const result = testAsycn();
+        // result.then((res) => {
+        //     console.log(res)
+        // })
+
+        function getSomething() {
+            return 'something'
+        }
+        async function testAsycn() {
+            return Promise.resolve('hello async')
+        }
+        async function test() {
+            const v1 = await getSomething()
+            const v2 =  await testAsycn();
+            console.log(v1)
+            console.log(v2)
+        }
+        // test();
+        // setTimeout模拟耗时的异步
+        function takeLongTime() {
+            return new Promise((res) => {
+                setTimeout(() => {
+                    res('longtime')
+                },1000)
+            })
+        }
+        // takeLongTime().then((res) => {
+        //     console.log('get it',res)
+        // })
+
+        // 改用async/await 会怎样
+        function takeLongTime() {
+            return new Promise((res) => {
+                setTimeout(() => {
+                    console.log('langtime2')
+                },1000)
+            })
+        }
+        async function test() {
+            const v = await takeLongTime();
+            console.log(v)
+        }
+        // test()
+        // async/await 的优势在于处理 then 链
+        function takeLongTime(n) {
+            return new Promise((res) => {
+                setTimeout(() => {
+                    res(n + 200)
+                },n)
+            })
+        }
+        function step1(n) {
+            console.log(`step1 with ${n}`);
+            return takeLongTime(n);
+        }
+        function step2(n) {
+            console.log(`step2 with ${n}`);
+            return takeLongTime(n); 
+        }
+        function step3(n) {
+            console.log(`step3 with ${n}`);
+            return takeLongTime(n); 
+        }
+        function doit() {
+            console.time('doit');
+            const time1 = 300;
+            step1(time1).then(time2 => step2(time2))
+            .then(time3 => step3(time3))
+            .then(result => {
+                console.log(`result is ${result}`);
+                console.timeEnd("doit");
+            })
+        }
+        // doit();
+        // async/await 来实现
+        async function doIt() {
+            console.time('doit')
+            const time1 = 300;
+            const time2 = await step1(time1);
+            const time3 = await step2(time2);
+            const result = await step3(time3);
+            console.log(`result is ${result}`);
+            console.timeEnd("doit");
+        }
+        // doIt();
+        // 来个更加炫酷的
+        function step1(n) {
+            console.log(`step1 with ${n}`);
+            return takeLongTime(n);
+        }
+        function step2(m,n) {
+            console.log(`step2 with ${m} and ${n}`);
+            return takeLongTime(m + n); 
+        }
+        function step3(k,m,n) {
+            console.log(`step3 with ${k}, ${m} and ${n}`);
+            return takeLongTime(k+m+n); 
+        }
+
+        async function doit() {
+            console.time('doit');
+            const time1 = 300;
+            const time2 = await step1(time1);
+            const time3 = await step2(time1,time2)
+            const result = await step3(time1,time2,time3)
+            console.log(`result is ${result}`);
+            console.timeEnd("doIt");
+        }
+        // doit();
+        // 改成promise
+        function doit() {
+            console.time('doit');
+            const time1 = 300;
+            step1(time1).then(time2 => {
+                return step2(time1,time2)
+                .then(time3 => [time1,time2,time3])
+            })
+            .then(times => {
+                const [time1, time2, time3] = times;
+                return step3(time1, time2, time3);
+            })
+            .then(result => {
+                console.log(`result is ${result}`);
+                console.timeEnd("doIt");
+            });
+        }
+        doit();
+
+    </script>
+</body>
+
+</html> 
