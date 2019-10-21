@@ -170,10 +170,13 @@ Promise.prototype.then = function(onFulfiled,onRjected) {
                 try{
                     let x = onFulfiled(self.value);
                     resolvePromise(promise2,resolve,reject)
+                }catch(e) {
+                    reject(e)
                 }
             })
         })
     }
+    if()
 }
 
     </script>
