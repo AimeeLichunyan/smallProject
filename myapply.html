@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>myapply</title>
+</head>
+<body>
+    <script>
+    //   myapply的实现
+    Function.prototype.myapply = function(x,y) {
+        x = x || window
+        y = y || []
+        x._apply = this
+        if(!x._apply){
+            x.constructor.prototype._apply = this;
+        }
+        var r,j = y.length;
+        switch(j) {
+            case 0:
+                r = x._apply;
+                break;
+            case 1:
+                r = x._apply(y[0]);
+                break;
+            case 2: 
+                r = x._apply(y[0],y[1]);
+                break;
+            case 3: 
+                r = x._apply(y[0],y[1],y[2]);
+                break;
+            case 3: 
+                r = x._apply(y[0],y[1],y[2],y[3]);
+                break;
+            default: 
+                r = eval('x._apply(' + y.join() + ')'); 
+                break
+        }
+        try{
+            delete x._apply ? x._apply : x.constructor.prototype._apply;
+        }catch(e) {
+            return r;
+        }
+    }
+
+    var obj = {
+        age : 'hhhh'
+    }
+    function f(name,addr) {
+        console.log(this.age,name,addr)
+    }
+    // f.myapply(obj,[1,2,3,4,5]);
+    // 实现call
+    Function.prototype.mycall = function() {
+        let len = arguments.length - 1;
+        let x = arguments[0];
+        let y = [];
+        for(let i = 0; i < len; i++) {
+            y[i] = arguments[i+1]
+        }
+        return this.apply(x,y)
+    }
+    // f.mycall(obj,1,2)
+    // 实现bind
+    Function.prototype.mybind = function() {
+        console.log(111)
+        let x = arguments[0];
+        let len = 0;
+        let y = [];
+        let i,j;
+        let fn = this;
+        for(let i = 0; i < arguments.length - 1; i++) {
+            y[i] = arguments[i+1];
+        }
+        return function() {
+            for(j = 0; j < arguments.length; j++) {
+                y[y.length] = arguments[j]
+            }
+            console.log(this)
+            return fn.apply(x,y)
+        }
+    }
+    f.mybind(obj)
+    </script>
+</body>
+</html>
