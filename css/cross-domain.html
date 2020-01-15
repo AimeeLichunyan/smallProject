@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app"></div>
+    <script type="text/javascript" src="./vued.js"></script>
+    <script>
+        var vm = new vue();
+        setTimeout(function() {
+            console.log(vm.$data)
+            vm.$data.a = 444
+        },2000)
+    </script>
     
 </body>
 </html>
