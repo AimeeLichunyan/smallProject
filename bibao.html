@@ -8,177 +8,114 @@
 </head>
 <body>
     <script>
-        // function fun() {
-        //     var count = 1;
-        //     return function () {
-        //         count++
-        //         console.log(count)
+        class Product {
+            constructor(name) {
+                this.name = name;
+            }
+            init() {
+                alert('init')
+            }
+            fun1() {
+                alert('fun1')
+            }
+            fun2() {
+                alert('fun2')
+            }
+        }
+        // 工厂
+        class Creator {
+            create(name) {
+                return new Product(name)
+            }
+        }
+        // 创建一个工厂的实例
+        var creator = new Creator();
+        var p = creator.create('p1');
+        p.init()
+        p.fun1()
+
+        class jQuery {
+            constructor(selector) {
+
+            }
+            append() {
+
+            }
+            addClass() {
+
+            }
+            html(data) {
+
+            }
+        }
+        window.$ = function(selector) { // 最外层的函数是一个工厂，相当于这个工厂封装了返回实例的操作
+            return new jQuery(selector)
+        }
+
+        // 单例模式
+        // class singleObject {
+        //     login() {
+        //         console.log('login...')
         //     }
         // }
-        // var fun2 = fun();
-        // fun2()
-        // fun2()
-
-        // function fun(n,o) {
-        //     console.log(o);
-        //     return {
-        //         fun: function(m) {
-        //             return fun(m,n)
-        //         }
-        //     }
-        // }
-        // var a = fun(0); // undefined
-        // a.fun(1); // 0
-        // console.log(a.fun(1))
-        // a.fun(2) // 0
-        // a.fun(3) // 0
-
-        // var b = fun(0).fun(1).fun(2).fun(3).fun(22) // undefined 0,1,2,3,
-        // var c = fun(0).fun(1);
-        // c.fun(2);
-        // c.fun(3) // undefined 0 1,1
-
-        // js原生实现bind
-        // console.log('js原生实现bind')
-        // var a = {
-        //     b: function() {
-        //         var func = function() {
-        //             console.log(this.c);
-        //         }
-        //         func();
-        //     },
-        //     c: 'hello'
-        // }
-        // a.b(); // undefined 这里的this指向的是全局作用域
-        // console.log(a.c); // hello
-
-        // console.log('改变this的指向');
-        // var a = {
-        //     b: function() {
-        //         var _this = this;
-        //         var func = function() {
-        //             console.log(_this.c)
-        //         }
-        //         func();
-        //     },
-        //     c: 'hello'
-        // }
-        // a.b();
-
-        // console.log('bind的实现')
-        // Function.prototype.myBind = function(context) {
-        //     var self = this;
+        // singleObject.getInstance = (function() {
+        //     let instance;
         //     return function() {
-        //         self.apply()
+        //         if(!instance) {
+        //             instance = new singleObject();
+        //         }
+        //         return instance;
         //     }
+        // })()
+        // let obj1 = singleObject.getInstance();
+        // obj1.login();
+        // let obj2 = singleObject.getInstance();
+        // obj2.login();
+        // console.log('obj1===obj2',obj1===obj2) // true
+        // console.log('obj1===obj3',obj1===obj3) // false
+
+        // if(window.jQuery !== null) {
+        //     return window.jQuery
+        // }else {
+        //     初始化
         // }
-
-        // 实现apply
-        // Function.prototype.myapply = function(x,y) {
-        //     x = x || window;
-        //     y = y || [];
-        //     x._apply = this;
-        //     if(!x._apply) {
-        //         x.constructor.prototype._apply = this;
-        //     }
-        //     var r, j = y.length;
-        //     switch(i) {
-        //         case 0: 
-        //         r = x._apply()
-        //         break;
-        //         case 1:
-        //         x._apply(y[0])
-        //         break
-        //         case 2:
-        //         x._apply[]
-        //     }
-        // }
-
-
-        // 算法，递归
-
-        // function fn(n) {
-        //     if(n == 1 || n ==2) {
-        //         return 1;
-        //     }
-        //     return fn(n-1)+fn(n-2)
-        // }
-        // console.log(fn(6))
-
-        // 遍历
-        // function fn2(n) {
-        //     var a1 = 0;
-        //     var a2 = 1;
-        //     var a3 = 1;
-        //     for(let i = 3; i <= n; i ++) {
-        //         a1 = a2 + a3;
-        //         a2 = a3;
-        //         a3 = a1 
-        //     }
-        //     return a1
-        // }
-
-        // console.log(fn2(6))
-
-function Promise (excecutor) {
-    // 需要的变量
-    let self = this;
-    self.status = 'pending';
-    self.value = undefined; // 默认成功的值
-    self.reason = undefined; // 默认失败的原因
-    self.onResolvedCallbacks = [];
-    self.onRejectedCallbacks = [];
-    // 成功的回调函数
-    function resolve(value) {
-        if(self.status === 'pending') {
-            self.status = 'resolved';
-            self.value = value;
-            self.onResolvedCallbacks.forEach(function(fn) {
-                fn()
-            })
-        }
-    }
-    // 失败的回调函数
-    function reject(reason) {
-        if(self.status === 'pending') {
-            self.status = 'rejected';
-            self.reason = reason;
-            self.onRejectedCallbacks.forEach(function(fn) {
-                fn()
-            })
-        }
-    }
-    try{
-        excecutor(resolve,reject);
-    }catch(e) {
-        reject(e)
-    }
-}
-
-Promise.prototype.then = function(onFulfiled,onRjected) {
-    onFulfiled = typeof onFulfiled === 'function' ? onFulfiled : function(value) {
-        return value
-    }
-    onRjected = typeof onRjected === 'function' ? onRjected : function(err) {
-        throw err;
-    }
-    let self = this;
-    let promise2;
-    if(self.status == 'resolved') {
-        promise2 = new Promise(function(resolve,reject) {
-            setTimeout(function() {
-                try{
-                    let x = onFulfiled(self.value);
-                    resolvePromise(promise2,resolve,reject)
-                }catch(e) {
-                    reject(e)
+            class LoginForm {
+                constructor() {
+                    this.state = 'hide'
                 }
-            })
-        })
-    }
-    if()
-}
+                show() {
+                    if(this.state === 'show') {
+                        alert('已经显示');
+                        return 
+                    }
+                    this.state = 'show';
+                    console.log("登录框显示成功");
+                    
+                }
+                hide() {
+                    if(this.state === 'hide') {
+                        alert('已经隐藏');
+                        return 
+                    }
+                    this.state = 'show';
+                    console.log("登录框隐藏");
+                }
+            }
+            LoginForm.getInstance = (function() {
+                let instance;
+                return function() {
+                    if(!instance) {
+                        instance = new LoginForm();
+                    }
+                    return instance;
+                }
+            })()
 
+            let login1 = LoginForm.getInstance();
+            login1.show();
+            let login2 = LoginForm.getInstance();
+            login2.show()
+            console.log('login1===login2',login1===login2) // true
     </script>
 </body>
 </html>

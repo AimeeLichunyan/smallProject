@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1">
+    <title>Document</title>
+</head>
+<style type="text/css">
+*{
+    margin: 0;
+    padding: 0;
+}
+   #box {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-bottom: 1px solid #000;
+   }
+   
+    </style>
+<body>
+   
+       <div id="box"></div>
+        
+    <script>
+        // 1物理像素的实现   失败
+        // 物理像素与css之间的关系
+        // 像素比 = 物理像素 / css像素
+        var dpr = window.devicePixelRatio; // 设备像素比
+
+// // 缩放的比例
+
+var scale = 1/ dpr;
+
+// console.log(scale);
+
+var viewport = document.querySelector("meta[name=viewport]");
+
+    viewport.setAttribute('content', 'width=device-width,initial-scale='+ scale +',  user-scalable=no');
+
+    var docEl = document.documentElement;
+
+    var fontsize = document.documentElement.clientWidth + 'px';
+
+    // 1rem = fontsize
+
+    docEl.style.fontSize = fontsize;
+
+
+
+        
+    </script>
+</body>
+</html>
