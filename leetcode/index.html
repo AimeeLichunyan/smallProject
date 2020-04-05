@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      /**
+ * 无重复字符的最长子串
+ * @param {string} 
+ * @return {number}
+ * 输入: "abcabcbb" 输出: 3
+ * 输入: "bbbbb" 输出: 1 
+ */
+var lengthOfLongestSubstring = function(s) {
+    let arr1 = s.split('');
+    var arr = [];
+    var num = 0;
+    if(arr1.length == 1) {
+        return 1;
+    }else {
+        for(let i = 0; i < arr1.length; i++) {
+            if(arr.includes(arr1[i])) {
+                arr = []
+            }else {
+                arr.push(arr1[i])
+            }
+        }
+        console.log(arr)
+        return arr.length
+    }
+};
+// console.log(lengthOfLongestSubstring("abcabcbb"))  
+
+// 杨辉三角
+var generate = function(numRows) {
+    let arr = [];
+    for(let i = 1; i <= numRows; i++) {
+        let arr2 = [];
+        for(j = 0; j < i; j++) {
+            if(j == 0 || j == i-1) {
+                arr2.push(1)
+            }else {
+                arr2.push(arr[i-2][j-1] + arr[i-2][j])
+            }
+            
+        }
+        arr.push(arr2)
+    }
+    return arr
+
+};
+// console.log(generate(4))
+
+// 冒泡排序
+var arr = [49, 38, 65, 97, 76, 13, 27, 49];
+function fn(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 1; j < i -1; j++) {
+            var a = arr[i];
+            arr[i] = arr[j];
+            arr[j] = arr[i]
+        }
+    }
+    return arr;
+}
+// console.log(fn())
+
+var singleNumber = function(nums) {
+    for(let i = 0; i < nums.length; i++) {
+        if(arr[i] == arr[i+1]) {
+            i = i+1
+        }else {
+            console.log(arr[i])
+            return arr[i]
+        }
+    }
+};
+// singleNumber([2,2,1])
+// console.log(singleNumber([2,2,1]))
+// 归并排序   ?
+console.log('归并排序')
+var sort=function(arr){
+    if(arr.length<=1) return arr;
+    
+    let mid=parseInt(arr.length/2);
+    // 递归调用自身，拆分的数组都是排好序的，最后传入merge合并处理
+    return merge(sort(arr.slice(0,mid)),sort(arr.slice(mid)));
+}
+// 将两个排好序的数组合并成一个顺序数组
+var merge=function(left,right){
+    console.log(left)
+    let res=[];
+    while(left.length>0 && right.length>0){
+        // 不断比较left和right数组的第一项，小的取出存入res
+        left[0]<right[0]?res.push(left.shift()):res.push(right.shift());
+    }
+    return res.concat(left,right);
+}
+// console.log(sort([3, 1, 2, 8, 9, 7, 6]))
+
+function checkArray(array) {
+    if (!array) return
+}
+function swap(array, left, right) {
+    let rightValue = array[right]
+    array[right] = array[left]
+    array[left] = rightValue
+}
+
+// 实现一个栈的特性
+class Stack {
+    constructor() {
+        this.stack = [];
+    }
+    push(item) {
+        this.stack.push(item); // 添加元素
+    }
+    peek(item) {
+        return this.stack[this.getCount - 1] // 获取栈的最后一个元素
+    }
+    getCount() {
+        return this.stack.length; // 获取数组的长度
+    }
+    isEmpty() { // 清空栈
+        return this.getCount() === 0
+    }
+
+}
+
+// 力扣第20题有效的括号
+
+function isValid(s) {
+    let map = {
+        '(': -1,
+        ')': 1,
+        '[': -2,
+        ']': 2,
+        '{': -3,
+        '}': 3
+    }
+    let stack = [];
+    for(let i= 0; i < s.length; i++) {
+        if(map[s[i]] < 0) {
+            stack.push(s[i])
+        }else {
+            let last = stack.pop();
+            if(map[last] + map[s[i]] != 0) {
+                return false
+            }
+        }
+    }
+    if(stack.length > 0) {
+        return false
+    }
+    return true
+}
+console.log(isValid("(]"))
+    </script>
+</body>
+</html>
