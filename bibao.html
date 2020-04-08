@@ -13,13 +13,13 @@
                 this.name = name;
             }
             init() {
-                alert('init')
+                // alert('init')
             }
             fun1() {
-                alert('fun1')
+                // alert('fun1')
             }
             fun2() {
-                alert('fun2')
+                // alert('fun2')
             }
         }
         // 工厂
@@ -79,37 +79,37 @@
         // }else {
         //     初始化
         // }
-            class LoginForm {
-                constructor() {
-                    this.state = 'hide'
-                }
-                show() {
-                    if(this.state === 'show') {
-                        alert('已经显示');
-                        return 
-                    }
-                    this.state = 'show';
-                    console.log("登录框显示成功");
+            // class LoginForm {
+            //     constructor() {
+            //         this.state = 'hide'
+            //     }
+            //     show() {
+            //         if(this.state === 'show') {
+            //             alert('已经显示');
+            //             return 
+            //         }
+            //         this.state = 'show';
+            //         console.log("登录框显示成功");
                     
-                }
-                hide() {
-                    if(this.state === 'hide') {
-                        alert('已经隐藏');
-                        return 
-                    }
-                    this.state = 'show';
-                    console.log("登录框隐藏");
-                }
-            }
-            LoginForm.getInstance = (function() {
-                let instance;
-                return function() {
-                    if(!instance) {
-                        instance = new LoginForm();
-                    }
-                    return instance;
-                }
-            })()
+            //     }
+            //     hide() {
+            //         if(this.state === 'hide') {
+            //             alert('已经隐藏');
+            //             return 
+            //         }
+            //         this.state = 'show';
+            //         console.log("登录框隐藏");
+            //     }
+            // }
+            // LoginForm.getInstance = (function() {
+            //     let instance;
+            //     return function() {
+            //         if(!instance) {
+            //             instance = new LoginForm();
+            //         }
+            //         return instance;
+            //     }
+            // })()
 
         // console.log(fn2(6))
 
@@ -324,23 +324,123 @@
 // console.log(F.a);
 // console.log(F.b);
 
-function Person(name) {
-    this.name = name;
-}
-Person.prototype = {
-    getName() {
+// function Person(name) {
+//     this.name = name;
+// }
+// Person.prototype = {
+//     getName() {
+//         console.log(this.name)
+//     }
+// }
+// let person = new Person('lili');
+// person.getName()
+// console.log(Person.prototype.__proto__) // Object.prototype 
+
+//             let login1 = LoginForm.getInstance();
+//             login1.show();
+//             let login2 = LoginForm.getInstance();
+//             login2.show()
+//             console.log('login1===login2',login1===login2) // true
+console.log('====bind======')
+var obj = {};
+console.log(obj);
+console.log(typeof Function.prototype.bind)
+console.log(typeof Function.prototype.bind())
+console.log(Function.prototype.bind.name)
+console.log(Function.prototype.bind().name)
+
+console.log('=====this的指向问题=====');
+var name = "lili"
+var a = {
+    name : 'A',
+    fn: function() {
+        console.log(this);
         console.log(this.name)
+        
     }
 }
-let person = new Person('lili');
-person.getName()
-console.log(Person.prototype.__proto__) // Object.prototype 
+a.fn();
+a.fn.call({name: 'B'});
+var fn1 = a.fn;
+fn1();
+console.log('=====作用域=====')
+if(true) {
+    var name = 'lili';
+}
+console.log(name);
 
-            let login1 = LoginForm.getInstance();
-            login1.show();
-            let login2 = LoginForm.getInstance();
-            login2.show()
-            console.log('login1===login2',login1===login2) // true
+console.log('=====发布订阅模式=======');
+
+class Subject {
+    constructor() {
+        this.state = 0;
+        this.observers = [];
+    }
+    // 获取值
+    getState() {
+        return this.state;
+    }
+    // 设置值
+    setState(state) {
+        this.state = state;
+        this.notifyAllObservers();
+    }
+    // 通知观察者
+    notifyAllObservers() {
+        this.observers.forEach(observer => {
+            observer.update()
+        })
+    }
+    // 添加观察者
+    attach(observer) {
+        this.observers.push(observer)
+
+    }
+}
+
+// 观察者
+class Observer {
+    constructor(name,subject) {
+        this.name = name;
+        this.subject = subject;
+        console.log(this)
+        this.subject.attach(this)
+    }
+    // 更新
+    update() {
+        console.log(`${this.name}update;state:${this.subject.getState()}`);
+        
+    }
+}
+// 测试
+let s = new Subject();
+let o1 = new Observer('o1',s);
+let o2 = new Observer('o2',s);
+let o3 = new Observer('o3',s);
+// o1.update()
+s.setState(3)
+console.log(Subject.prototype);
+console.log(s.__proto__)
+// 构造函数
+function person() {
+
+}
+console.log('dshf')
+console.log(person.prototype);
+
+// $('#btn').click(function() {
+//     console.log(1)
+// })
+// $('#btn').click(function() {
+//     console.log(2)
+// })
+let object = {
+    name: 'nan'
+}
+console.log('---')
+console.log(object.prototype)
+
+
     </script>
 </body>
 </html>
