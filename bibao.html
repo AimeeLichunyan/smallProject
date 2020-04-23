@@ -439,8 +439,125 @@ let object = {
 }
 console.log('---')
 console.log(object.prototype)
+// 最小路径和
+// 动态规划-- 120题
+var minimumTotal = function(triangle) {
+    let num = 0
+    let arr = new Array(triangle.length+1).fill(1)
+    for(let i = triangle.length - 1; i >= 0; i--) {
+        num += Math.min(triangle[i])
+    }
+    return num
+};
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+ var minimumTotal = function(triangle) {
+    for(var i = triangle.length-2;i >= 0;i--){
+        for(var j = 0;j < triangle[i].length;j++){
+            triangle[i][j] = Math.min(triangle[i+1][j],triangle[i+1][j+1]) + triangle[i][j];
+        }
+    }
+    return triangle[0][0];
+};
+// minimumTotal([[-1],[2,3],[1,-1,-3]])
+// 正整数的最大乘积  343
+console.log('动态规划')
+var integerBreak = function(n) {
+    const arr = new Array(n+1).fill(1);
+    for(let i = 3; i <= n; ++i) {
+        for(let j = 1; j< i; ++j) {
+            console.log(arr[i])
+            arr[i] = Math.max(arr[i],j * (i - j), j * arr[i - j]) // ??????
+        }
+    }
+    
+    return arr[n]
+};
+// integerBreak(4)
+var numSquares = function(n) {
+    let arr = new Array(n+1).fill(Infinity); // 存最少个数的
+    arr[1] = 1
+    for(let i = 1; i <= n; i++) {
+        
+        for(j = 1; Math.pow(j,2) <= i; j++) {
+            arr[i] = Math.min(arr[i], arr[i-Math.pow(j,2)]+1)
+        }
+    }
+    return arr[n]
+};
+numSquares(12)
 
+// 原型继承
+console.log('原型继承')
+function Person(name) {
+    this.name = name;
+    this.classname = 'personkkk'
+}
+Person.prototype.getState = function() {
+    console.log(this.name)
+}
+function Man() {
 
+}
+Man.prototype = new Person('我是哈哈哈哈');
+var man = new Man();
+// console.log(new Man())
+// man.getState()
+// 构造函数继承
+console.log('构造函数继承')
+function Person(name) {
+    this.name = name;
+    this.classname = 'nihay'
+}
+Person.prototype.getState = function() {
+    console.log(this.name)
+}
+function people(jj) {
+    console.log('woshi')
+}
+function Man(name) {
+    Person.call(this,name)
+}
+let man1 = new Man('hh');
+let man2 = new Man('hhhh')
+man1.getState();
+man2.getState()
+console.log(man2.name)
+
+// 组合继承
+function Person(name) {
+    this.name = name;
+    this.classname = 'xixiix'
+}
+Person.prototype.getState = function() {
+    console.log(this.name)
+}
+function Man() {
+    Person.apply(this,arguments)
+}
+Man.prototype = new Person();
+let man3 = new Man('xiaozi ')
+man3.getState();
+let man4 = new Man('huahua')
+man4.getState()
+
+// 寄生式继承
+console.log('寄生式继承')
+function Person(name) {
+    this.name = name;
+    this.classname = 'classname'
+}
+Person.prototype.getState = function() {
+    console.log(this.name)
+}
+function Man() {
+    Person.apply(this,arguments)
+}
+Man.prototype = Object.create(Person.prototype);
+let man5 = new Man('huhuhu');
+man5.getState();
     </script>
 </body>
 </html>
