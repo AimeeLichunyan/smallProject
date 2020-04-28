@@ -514,9 +514,6 @@ function Person(name) {
 Person.prototype.getState = function() {
     console.log(this.name)
 }
-function people(jj) {
-    console.log('woshi')
-}
 function Man(name) {
     Person.call(this,name)
 }
@@ -525,7 +522,30 @@ let man2 = new Man('hhhh')
 man1.getState();
 man2.getState()
 console.log(man2.name)
+function Person(name){
 
+this.name=name;
+
+this.className="person" 
+
+}
+
+Person.prototype.getName=function(){
+
+console.log(this.name)
+
+}
+
+function Man(name){
+
+ Person.apply(this,arguments)
+
+}
+
+var man10=new Man("Davin");
+
+// var man2=new Man("Jack");
+man10.getName()
 // 组合继承
 function Person(name) {
     this.name = name;
@@ -558,6 +578,13 @@ function Man() {
 Man.prototype = Object.create(Person.prototype);
 let man5 = new Man('huhuhu');
 man5.getState();
+
+
+
+
+
+
+
     </script>
 </body>
 </html>

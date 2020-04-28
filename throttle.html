@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流和防抖</title>
+</head>
+<body>
+    <script>
+        function throttle(fn,waite) {
+            let lastTime = 0;
+            return function(...arguments) {
+                let now = new Date()
+                if(now - lastTime > waite) {
+                    fn.apply(this,arguments);
+                    lastTime = now;
+                }
+            }
+        }
+        // 防抖
+        const debonce = function(func,wait) {
+            let timer = 0;
+            return function(...arguments) {
+                if(timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    func.apply(this,arguments)
+                },wait)
+            }
+        }
+
+        // 节流
+        const throttle = function(func,wait) {
+            let lastTime = 0;
+            return function(...arguments) {
+                let now = new Date();
+                if(now - lastTime > wait) {
+                    fn.apply(this.arguments);
+                    lastTime = now;
+                }
+            }
+        }
+        // 防抖
+        const debonce = function(func,wait) {
+            let timer = 0;
+            return function(...arguments) {
+                if(timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    func.apply(this,arguments)
+                })
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计模式</title>
+</head>
+<body>
+    <script>
+        console.log('====工厂模式====')
+        class Product{
+            constructor(name) {
+                this.name = name;
+            }
+            init() {
+                alert(1);
+            }
+            fun1() {
+                alert('fun1')
+            }
+            fun2() {
+                alert('fun2')
+            }
+        }
+        // 工厂
+        class Creator {
+            creator(name) {
+                return new Product(name)
+            }
+        }
+        // 创建一个工厂
+        var creator = new Creator();
+        var p = creator.creator('p1');
+        console.log(p.init());
+        console.log(p.fun1())
+
+        // 单例模式
+        class singleObject{
+            login() {
+                console.log('login...')
+            };
+
+        }
+        singleObject.getInstance = (function() {
+            let instance;
+            return function() {
+                if(!instance) {
+                    instance = new singleObject();
+                }
+                return instance;
+            }
+        })()
+        let obj1 = singleObject.getInstance();
+
+    </script>
+</body>
+</html>
