@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环的一些实现</title>
+</head>
+<body>
+    <script>
+        console.log('============')
+        console.log('map循环知多少')
+        var arr = [1,2,3,5]
+        arr.map((item,index,arr)=> {
+            console.log(item + 1)
+            return item + 1
+        })
+
+        console.log('实现')
+        Array.prototype.myMap = function(fn) {
+            let newArr = [];
+            for(let i = 0; i < this.length; i++) {
+                newArr.push(fn(this[i]))
+            }
+        }
+        arr.myMap((item) => {
+            console.log(item*2)
+        })
+
+        console.log('reduce 知多少')
+        let reduce = arr.reduce((value,item) => {
+            return  value+item
+        })
+        console.log(reduce);
+
+        let result=arr.reduce((val,item,index,origin) =>{
+            return val+item
+        },0);
+        console.log(result)
+        console.log('reduce 实现')
+        Array.prototype.myReduce = function(fn,initialValue) {
+            if(this.length == 0) {
+                if(initialValue == undefined) {
+                    console.log('inv')
+                }else {
+                    return initialValue;
+                }
+            }else {
+                var prev = initialValue !== undefined ? initialValue :this[0];
+                var startIndex = initialValue !== undefined ? 0: 1;
+                for(var i = startIndex; i < this.length; i++) {
+                    prev = fn(prev,this[i])
+                }
+                return prev
+            }
+        }
+        let myReduce = arr.myReduce((value,item) => {
+            return value+item
+        })
+        console.log('wo 自己的呀')
+        console.log(myReduce)
+
+        console.log('filter');
+        let filter = arr.filter((item)=> {
+            return item > 4
+        })
+        console.log(filter);
+        console.log('filter 的实现');
+        Array.prototype.myFilter = function(fn) {
+            let newArr = [];
+            for(let i = 0; i < this.length;i++) {
+                if(fn(this[i])) {
+                    newArr.push(this[i])
+                }
+            }
+            return newArr
+        }
+        let myFilter = arr.myFilter((item) => {
+            return item > 2
+        }) 
+        console.log(myFilter)
+        
+    </script>
+</body>
+</html>

@@ -159,6 +159,26 @@ function isValid(s) {
     return true
 }
 console.log(isValid("(]"))
+
+// 判断字符串是不是回文？
+function fn(string) {
+    console.log(string)
+    console.log(string.length)
+    let s = string
+    let left = 0;
+    let right = s.length - 1;
+    
+    while(left < right) {
+        if(s[left] != s[right]) {
+            return false
+            left++;
+            right--
+        }
+        return true
+    }
+} 
+console.log('==== 回文 ===')
+console.log(fn("121"))
     </script>
 </body>
 </html>
