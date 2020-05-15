@@ -343,6 +343,164 @@ let person = new Person('lili');
 person.getName()
 console.log(Person.prototype.__proto__) // Object.prototype 
 
+// 非递归实现先序遍历
+// let dfs = function (nodes) {
+//     let result = [];
+//     let stack = [];
+//     stack.push(node);
+//     console.log(stack)
+//     while(stack.length) {
+//         let node = stack.pop();
+//         result.push(node.value);
+//         if(node.right) stack.push(node.right);
+//         if(node.left) stack.push(node.left)
+//     }
+// }
+var tree = {
+    value: "-",
+    left: {
+        value: '+',
+        left: {
+            value: 'a',
+        },
+        right: {
+            value: '*',
+            left: {
+                value: 'b',
+            },
+            right: {
+                value: 'c',
+            }
+        }
+    },
+    right: {
+        value: '/',
+        left: {
+            value: 'd',
+        },
+        right: {
+            value: 'e',
+        }
+    }
+}
+// var levelOrder = function(root) {
+//     if(!root) return []
+//     let res = []
+//     dfs(root, 0, res)
+//     return res
+// };
+
+// function dfs(root, step, res){
+//   if(root){
+//     if(!res[step]) res[step] = []
+//     console.log(root)
+//     res[step].push(root.value)
+//     console.log('res',res)
+//     dfs(root.left, step + 1, res)
+//     dfs(root.right, step + 1, res)
+//   }
+// }
+
+// let result = levelOrder()
+// console.log(result)
+// 广度遍历
+var singleNumber = function(nums) {
+   let newNum = [];
+   nums.sort((a,b) => {
+       return a-b
+   })
+   let length = nums.length
+   for(let i = 0; i < length; i+=2) {
+       if(nums[i-1] == nums[i] || nums[i] == nums[i+1]) {
+           continue
+       }else {
+           newNum = nums[i]
+       }
+   }
+    return newNum
+};
+console.log(singleNumber([2,1,2]))
+
+
+console.log('==============二叉树遍历=============')
+var tree = {
+    value: "-",
+    left: {
+        value: '+',
+        left: {
+            value: 'a',
+        },
+        right: {
+            value: '*',
+            left: {
+                value: 'b',
+            },
+
+                value: 'c',
+            }
+        }
+    },
+    right: {
+        value: '/',
+        left: {
+            value: 'd',
+        },
+        right: {
+            value: 'e',
+        }
+    }
+}
+// 递归实现先序遍历
+let result = [];
+let dfs = function(node) {
+    if(node) {
+        result.push(node.value);
+        dfs(node.left);
+        dfs(node.right)
+    }
+}
+dfs(tree)
+console.log(result)
+
+// 递归实现中序遍历
+let result1 = [];
+let dfs1 = function(node) {
+    if(node) {
+        dfs1(node.left)
+        result1.push(node.value);
+        dfs1(node.right)
+    }
+}
+dfs1(tree);
+console.log(result1)
+
+// 递归实现后序遍历
+let result2 = [];
+let dfs2 = function(node) {
+    if(node) {
+        dfs2(node.left);
+        dfs2(node.right);
+        result2.push(node.value)
+    }
+}
+dfs2(tree);
+console.log(result2)
+
+var levelOrder = function(root) {
+    if(!root) return []
+    let res = []
+    dfs(root, 0, res)
+    return res
+};
+
+function dfs(root, step, res){
+  if(root){
+    if(!res[step]) res[step] = []
+    res[step].push(root.val)
+    dfs(root.left, step + 1, res)
+    dfs(root.right, step + 1, res)
+  }
+}
     </script>
 </body>
 </html>
